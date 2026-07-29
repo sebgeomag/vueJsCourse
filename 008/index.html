@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -17,8 +17,20 @@
       <h1>Vue Dynamic Styling</h1>
     </header>
     <section id="styling">
-      <div class="demo"></div>
-      <div class="demo"></div>
+      <!-- Inline Styling -->
+      <div class="demo" :style="{borderColor: boxASelected ? 'red' : 'blue'}" @click="boxSelected('A')"></div>
+      <!-- Dynamic Styling 1-->
+      <div :class="boxASelected ? 'demo active' : 'demo'"></div>
+      <!-- Dynamic Styling 2; demo-Class is Default, active-Class is
+       added when boxASelected is true after Button click; this is
+       more readable and maintainable-->
+      <div :class="{demo:true, active:boxASelected}"></div>
+      <!-- Dynamic Styling 3: yet better, demo-Class is Default, active-Class is
+       added when boxASelected is true after Button click; this is
+       more readable and maintainable-->
+      <div class ="demo" :class="{active:boxASelected}"></div>
+      <div class ="demo" :class="{active:boxBSelected}" @click="boxSelected('B')"></div>
+      <div class ="demo" :class="{active:boxCSelected}" @click="boxSelected('C')"></div>
       <div class="demo"></div>
     </section>
   </body>
