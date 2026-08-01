@@ -3,7 +3,9 @@ const app = Vue.createApp({
         return{
             boxASelected: false,
             boxBSelected: false,
-            boxCSelected: false
+            boxCSelected: false,
+            user1: false,
+            user2: false
         }
     },
     methods:{
@@ -17,7 +19,13 @@ const app = Vue.createApp({
             }
         },
         setInputAsClass(evt){
-            alert(evt.target.value);
+            if(evt.target.value==="user1"){
+                this.user1 = true;
+                this.user2 = false;
+            }else if(evt.target.value==="user2"){
+                this.user2 = true;
+                this.user1 = false;
+            }
         }
     }
 });

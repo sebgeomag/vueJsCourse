@@ -21,7 +21,7 @@
       <!-- The entered class should be added to the below paragraph -->
       <input type="text" @keyup.enter="setInputAsClass"/>
       <!-- (available classes: "user1", "user2") -->
-      <p>
+      <p :class="{user1: user1, user2: user2}">
         Style me!
       </p>
       <button>Toggle Paragraph</button>
