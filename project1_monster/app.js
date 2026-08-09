@@ -43,6 +43,7 @@ const app = Vue.createApp({
         attackMonster(){
             console.log(this.attackCounter);
             const attackValue = getRandomValue(12,5);
+            this.writeLog('Player',attackValue);
             this.monsterHealth -= attackValue;
             this.attackPlayer();
             this.attackCounter++;
@@ -53,10 +54,12 @@ const app = Vue.createApp({
         },
         attackPlayer(){
             const attackValue = getRandomValue(15,8);
+            this.writeLog('Monster',attackValue);
             this.playerHealth -= attackValue;
         },
         specialAttackMonster(){
             const attackValue = getRandomValue(10,25);
+            this.writeLog('Player',attackValue);
             this.monsterHealth -= attackValue;
             this.attackPlayer();
             this.specialAttackDisabled = true;
@@ -68,6 +71,7 @@ const app = Vue.createApp({
                 this.playerHealth = 100;
             }else{
                 this.playerHealth += healValue;
+                this.writeHealLog(healValue)
             }
             this.attackPlayer();
             this.attackCounter++;
@@ -80,6 +84,12 @@ const app = Vue.createApp({
             this.playerHealth = 100;
             this.monsterHealth = 100;
             this.attackCounter = 0;
+        },
+        writeLog(caller,hitpoints){
+            console.log(caller+' hits with '+hitpoints+ ' hitpoints');
+        },
+        writeHealLog(healValue){
+            console.log('Player heals with '+healValue+ ' healpoints');
         }
     }
 });
