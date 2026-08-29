@@ -1,18 +1,23 @@
 <template>
     <li>
-        <h2>{{ name }} {{ friendIsFavorite==="1" ? '(Favorite)':'' }}</h2>
+        <h2>{{ name }} {{ isFavorite ? '(Favorite)':'' }}</h2>
         <button @click="toggleDetails">{{detailsAreVisible ? 'Hide' : 'Show' }} Details</button>
         <button @click="toggleFavorite">Favorit setzen</button>
         <ul v-if="detailsAreVisible">
             <li><strong>Phone: </strong>{{ phoneNumber }}</li>
             <li><strong>Email: </strong>{{ emailAddress }}</li>
         </ul>
+        <button @click="$emit('delete',id)">Delete Friend</button>
     </li>
 </template>
 
 <script>
     export default {
         props: {
+            id:{
+                type: String,
+                required: true
+            },  
             name: {
                 type: String,
                 required: true
@@ -26,21 +31,18 @@
                 required: true
             },
             isFavorite: {
-                type: String,
+                type: Boolean,
                 required: false,
-                default: '0'
+                default: false,
+                /*validator: function(value){
+                    return value==="1" || value==="0";
+                }*/
             }
         },
+        emits: ['toggle-favorite,delete'],
         data(){
             return {
                 detailsAreVisible: false,
-                friend: {
-                    id: 'manuel',
-                    name: 'Manuel Lorenzo',
-                    phone: '01234 43221',
-                    email: 'manuel@localhost.com'
-                },
-                friendIsFavorite: this.isFavorite,
             }
         },
         methods:{
@@ -48,12 +50,10 @@
                 this.detailsAreVisible = !this.detailsAreVisible;
             },
             toggleFavorite(){
-                if(this.friendIsFavorite === "0"){
-                    this.friendIsFavorite = "1";
-                }else{
-                    this.friendIsFavorite = "0";
-                }
-            }
+                //emit transfers Data from child component (FriendContact) 
+                // to parent component (App)
+                this.$emit('toggle-favorite',this.id); //must always be kebap-case
+            },
         }
     };
 </script>
